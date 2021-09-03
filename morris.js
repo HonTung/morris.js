@@ -1856,6 +1856,7 @@ Licensed under the BSD-2-Clause License.
       backgroundColor: '#FFFFFF',
       labelColor: '#000000',
       formatter: Morris.commas,
+      showTotalInitial: true,
       resize: false
     };
 
@@ -1922,19 +1923,32 @@ Licensed under the BSD-2-Clause License.
       }
       this.text1 = this.drawEmptyDonutLabel(cx, cy - 10, this.options.labelColor, 15, 800);
       this.text2 = this.drawEmptyDonutLabel(cx, cy + 10, this.options.labelColor, 14);
-      max_value = Math.max.apply(Math, this.values);
-      idx = 0;
-      _ref2 = this.values;
-      _results = [];
-      for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
-        value = _ref2[_k];
-        if (value === max_value) {
-          this.select(idx);
-          break;
-        }
-        _results.push(idx += 1);
-      }
-      return _results;
+      
+      
+      if (this.options.showTotalInitial) {
+            
+          this.setLabels(this.options.showTotalInitial === true 
+              ? 'Total' 
+              : this.options.showTotalInitial, this.options.total);
+
+      }else{
+            
+          max_value = Math.max.apply(Math, this.values);
+          idx = 0;
+          _ref2 = this.values;
+          _results = [];
+          for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
+            value = _ref2[_k];
+            if (value === max_value) {
+              this.select(idx);
+              break;
+            }
+            _results.push(idx += 1);
+          }
+          return _results;
+       }
+      
+    
     };
 
     Donut.prototype.setData = function(data) {
